@@ -18,6 +18,7 @@ import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,6 +32,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @description("MVC Controller for Adding, Removing and Displaying Events and Calender")
+ * 
+ * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ */
 @Controller
 public class CalendarController implements Validator{
 
@@ -42,7 +48,12 @@ public class CalendarController implements Validator{
     private JobTitleDao jobTitleDao;
     @Autowired
     private SystemUserDao systemUserDao;
-
+    /**
+     * @param
+     * @description("")
+     * @return ModelAndView Object Containing All Calender Events and Logical View Name
+     */
+//    Displaying Calender and Scheduled Events
     @RequestMapping(value="/displayCalendar", method=RequestMethod.GET)
     @ResponseBody
     public ModelAndView displayCalender(){
@@ -53,13 +64,22 @@ public class CalendarController implements Validator{
         model.addObject("events", gson.toJson(events));
         return model;
     }
-
+    /**
+     * @param
+     * @description("Get method for returning html form for adding new events")
+     * @return Logical name for success view 
+     */
     @RequestMapping(value="/addEvent", method=RequestMethod.GET)
     public String addEvent(Model model){
         model.addAttribute("event", new Event());
         return "add_event";
     }
-
+    
+    /**
+     * @param
+     * @description("Post method handler for adding new events")
+     * @return Logical name for success view 
+     */
     @RequestMapping(value="/addEvent", method=RequestMethod.POST)
     public String addEvent(@ModelAttribute("event") Event event1, Model model){
         Event event = DummyEvent.getEvent(event1);
@@ -87,12 +107,20 @@ public class CalendarController implements Validator{
         eventDao.save(event);
         return "display_calendar";
     }
-
+    /**
+     * @param
+     * @description("Override Method from spring validator interface to ensure the type of Event")
+     * @return 
+     */
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.equals(Event.class);
     }
-
+    /**
+     * @param
+     * @description("Validating Date and Title for The Event")
+     * @return 
+     */
     @Override
     public void validate(Object object, Errors errors) {
         Event event = (Event) object;
@@ -105,7 +133,11 @@ public class CalendarController implements Validator{
         }
         ValidationUtils.rejectIfEmpty(errors, "title", "required.title", "Title is required");
     }
-
+    /**
+     * @param WebDataBinder
+     * @description("Used for mapping Date Objects from submitted forms to java.util.Date")
+     * @return nothing
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

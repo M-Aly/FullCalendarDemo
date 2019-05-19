@@ -21,6 +21,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+
+/**
+ * @description("Spring Configuration Class Annotation Based")
+ * 
+ * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ */
 @Configuration
 @PropertySource("classpath:datasource.properties")
 @EnableTransactionManagement

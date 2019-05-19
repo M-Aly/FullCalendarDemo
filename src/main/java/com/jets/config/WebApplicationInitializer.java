@@ -2,6 +2,12 @@ package com.jets.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+
+/**
+ * @description("Class for DispatcherServlet Using Annotation")
+ * 
+ * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ */
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
