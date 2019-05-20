@@ -1,6 +1,4 @@
 
-var calendar;
-
 function getString(number) {
     var str = number;
     if(number < 9) {
@@ -13,43 +11,78 @@ function stringDate(date) {
     return getString(date.getFullYear()) + "-" + getString(date.getMonth() + 1) + "-" + getString(date.getDate());
 }
 
-function addEvent(eventId, eventTitle, eventStartDate, eventEndDate) {
+function addEvent(event) {
     calendar.addEvent({
-        title: eventTitle,
-        start: stringDate(new Date(eventStartDate)),
-        end: stringDate(new Date(eventEndDate))
+        title: event.name,
+        start: stringDate(new Date(event.startDate)),
+        end: stringDate(new Date(event.endDate))
     });
 }
 
 function addEvents(events) {
     for(var i = 0 ; i < events.length ; i++) {
-        addEvent(events[i].Uuid, events[i].name, events[i].startDate, events[i].endDate);
+        addEvent(events[i]);
     }
 }
 
-var calendarEl = document.getElementById('calendar');
-calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
-    locale: 'en',
-    firstDay: 6,
-    dir: 'ltr',
-    header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    },
-    color: "red"
-});
-calendar.render();
-
-document.addEventListener("contextmenu", function(e){
-    console.log(e);
-});
-
-function contextMenuListener(eventElement){
-    eventElement.addEventListener("contextmenu", function(){
-        console.log(e, el);
-        toggleMenuOn();
+function initCalendar(themeSystem) {
+    var calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+        themeSystem: themeSystem,
+        locale: 'en',
+        firstDay: 6,
+        dir: 'ltr',
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        },
+        eventRender: function(info) {
+        	$(function() {
+                $(info.el).contextMenu({
+                    selector: 'div', 
+                    callback: function(key, options) {
+                    	if(key == "edit") {
+                    		$.ajax();
+                    	}
+                    	else if(key == "delete") {
+                    		$.ajax();
+                    	}
+                    },
+                    items: {
+                        "edit": {name: "Edit event", icon: "edit"},
+                        "delete": {name: "Delete event", icon: "delete"}
+                    }
+                });   
+            });
+        },
+        dayRender: function(info) {
+        	$(function() {
+                $(info.el).contextMenu({
+                    selector: 'td',
+                    callback: function(key, options) {
+                    	if(key == "add") {
+                    		$.ajax();
+                    	}
+                    },
+                    items: {
+                        "add": {name: "Add event", icon: "add"},
+                        "edit": {name: "Edit event", icon: "edit"}
+                    }
+                });   
+            });
+        },
+        color: "red"
     });
+    addEvents(events);
+    calendar.render();
 }
+
+initThemeChooser({
+	init: initCalendar,
+    change: function(themeSystem) {
+      calendar.setOption('themeSystem', themeSystem);
+    }
+});
 
