@@ -39,6 +39,7 @@ function initCalendar(themeSystem) {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
         },
+        editable:true,
         eventRender: function (info) {
             $(function () {
                 $(info.el).contextMenu({
@@ -46,7 +47,7 @@ function initCalendar(themeSystem) {
                     callback: function (key, options) {
                         if (key == "edit") {
                             $.ajax({
-                                url: "/editEvent.htm?eventId=" + info.event.id,
+                                url: "editEvent.htm?eventId=" + info.event.id,
                                 type: "GET",
                                 success: function (response)
                                 {
@@ -58,11 +59,11 @@ function initCalendar(themeSystem) {
                             });
                         } else if (key == "delete") {
                             $.ajax({
-                                url: "/deleteEvent.htm?eventId=" + info.event.id,
+                                url: "deleteEvent.htm?eventId=" + info.event.id,
                                 type: "POST",
                                 success: function (response)
                                 {
-                                    console.log("sucess!");
+                                    info.event.remove();
                                 },
                                 error: function (e) {
                                     console.log("ERROR: ", e);
@@ -92,8 +93,7 @@ function initCalendar(themeSystem) {
                     }
                 });
             });
-        },
-        color: "red"
+        }
     });
     addEvents(events);
     calendar.render();
@@ -105,19 +105,19 @@ initThemeChooser({
         calendar.setOption('themeSystem', themeSystem);
     }
 });
-$(document).ready(function(){
-   $("#testAjax").click(function(){
-       $.ajax({
-           type: "POST",
-           url:"/test.htm?testNum="+1,
-           sucess:function(e){
+$(document).ready(function () {
+    $("#testAjax").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/test.htm?testNum=" + 1,
+            sucess: function (e) {
                 console.log("Successsssssss")
 
-           }, 
-           error:function(e){
-               console.log("ERRORRRRRR"+e)
-           }
-       });
-   }); 
+            },
+            error: function (e) {
+                console.log("ERRORRRRRR" + e)
+            }
+        });
+    });
 });
 

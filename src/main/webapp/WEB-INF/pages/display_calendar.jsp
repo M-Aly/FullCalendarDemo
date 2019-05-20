@@ -15,6 +15,7 @@
 
 <script src='js/jquery-3.3.1.min.js'></script>
 <script src='js/core/main.js'></script>
+<script src='js/moment/main.js'></script>
 <script src='js/daygrid/main.js'></script>
 <script src='js/timegrid/main.js'></script>
 <script src='js/interaction/main.js'></script>
@@ -78,7 +79,6 @@ var calendar;
 </body>
 
 <script src='js/display_calendar.js'></script>
-    <input type="button" id="testAjax" value="Ajax"/>
 <script>
 	events = ${events};
 </script>

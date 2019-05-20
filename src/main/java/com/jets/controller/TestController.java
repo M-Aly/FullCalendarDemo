@@ -21,6 +21,6 @@ public class TestController {
     @RequestMapping(value="/test")
     public String test(@RequestParam String testNum){
         System.out.println("The Test Number Received is: "+testNum);
-        return "add_Event";
+        return "add_event";
     }
 }

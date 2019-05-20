@@ -17,6 +17,7 @@ import com.jets.dal.entity.JobTitle;
 import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Description;
@@ -113,8 +114,8 @@ public class CalendarController implements Validator{
     
     @RequestMapping(value="/editEvent", method=RequestMethod.GET)
     @ResponseBody
-    public ModelAndView editEvent(@RequestParam("eventId") byte[] eventId){
-        Optional<Event> optionalEvent = eventDao.findById(eventId);
+    public ModelAndView editEvent(@RequestParam("eventId") String eventId){
+        Optional<Event> optionalEvent = eventDao.findById(UUID.fromString(eventId));
         Event event = null;
         if(optionalEvent.isPresent())
             event = optionalEvent.get();
@@ -123,6 +124,7 @@ public class CalendarController implements Validator{
         ModelAndView model = new ModelAndView("edit_event", "event", jsonEvent);
         return model;
     }
+    
     @RequestMapping(value="/editEvent", method=RequestMethod.POST)
     @ResponseBody
     public String editEvent(@ModelAttribute("event") Event event){
@@ -132,11 +134,10 @@ public class CalendarController implements Validator{
     @RequestMapping(value="/deleteEvent", method=RequestMethod.POST)
     @ResponseBody
     public String deleteEvent(@RequestParam("eventId") String eventId){
-        System.out.println(eventId);
-        Event event = eventDao.findById(eventId.getBytes()).get();
+        Event event = eventDao.findById(UUID.fromString(eventId)).get();
         System.out.println("The Event"+event.getUuid()+"Will Be Deleted");
-        eventDao.deleteById(eventId.getBytes());
-        return "display_calender";
+        eventDao.deleteById(UUID.fromString(eventId));
+        return eventId;
     }
     /**
      * @param
