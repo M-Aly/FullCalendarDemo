@@ -50,7 +50,7 @@ public class CalendarController implements Validator{
     private SystemUserDao systemUserDao;
     /**
      * @param
-     * @description("")
+     * @description("Displays The Calender with attached events")
      * @return ModelAndView Object Containing All Calender Events and Logical View Name
      */
 //    Displaying Calender and Scheduled Events
@@ -105,7 +105,7 @@ public class CalendarController implements Validator{
             systemUserDao.save(event.getSystemUser());
         }
         eventDao.save(event);
-        return "display_calendar";
+        return "redirect:display_calendar";
     }
     /**
      * @param

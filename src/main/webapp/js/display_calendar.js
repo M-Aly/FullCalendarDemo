@@ -13,7 +13,7 @@ function stringDate(date) {
     return getString(date.getFullYear()) + "-" + getString(date.getMonth() + 1) + "-" + getString(date.getDate());
 }
 
-function addEvent(eventTitle, eventStartDate, eventEndDate) {
+function addEvent(eventId, eventTitle, eventStartDate, eventEndDate) {
     calendar.addEvent({
         title: eventTitle,
         start: stringDate(new Date(eventStartDate)),
@@ -23,7 +23,7 @@ function addEvent(eventTitle, eventStartDate, eventEndDate) {
 
 function addEvents(events) {
     for(var i = 0 ; i < events.length ; i++) {
-        addEvent(events[i].name, events[i].startDate, events[i].endDate);
+        addEvent(events[i].Uuid, events[i].name, events[i].startDate, events[i].endDate);
     }
 }
 
@@ -41,3 +41,15 @@ calendar = new FullCalendar.Calendar(calendarEl, {
     color: "red"
 });
 calendar.render();
+
+document.addEventListener("contextmenu", function(e){
+    console.log(e);
+});
+
+function contextMenuListener(eventElement){
+    eventElement.addEventListener("contextmenu", function(){
+        console.log(e, el);
+        toggleMenuOn();
+    });
+}
+
