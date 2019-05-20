@@ -105,7 +105,7 @@ public class CalendarController implements Validator{
             systemUserDao.save(event.getSystemUser());
         }
         eventDao.save(event);
-        return "display_calendar";
+        return "redirect:display_calendar";
     }
     /**
      * @param

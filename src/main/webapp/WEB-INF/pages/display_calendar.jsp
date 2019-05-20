@@ -11,6 +11,7 @@
 <link href='css/full_calendar/list/main.css' rel='stylesheet' />
 <link href='css/full_calendar/bootstrap/main.css' rel='stylesheet' />
 <link href='css/display_calendar.css' rel='stylesheet' />
+<link href='css/jquery.contextMenu.css' rel='stylesheet' />
 
 <script src='js/jquery-3.3.1.min.js'></script>
 <script src='js/core/main.js'></script>
@@ -21,6 +22,8 @@
 <script src='js/core/locales-all.js'></script>
 <script src='js/bootstrap/main.js'></script>
 <script src='js/theme-chooser.js'></script>
+<script src='js/jquery.ui.position.js'></script>
+<script src='js/jquery.contextMenu.js'></script>
 <script>
 var events;
 var calendar;

@@ -11,17 +11,17 @@ function stringDate(date) {
     return getString(date.getFullYear()) + "-" + getString(date.getMonth() + 1) + "-" + getString(date.getDate());
 }
 
-function addEvent(eventTitle, eventStartDate, eventEndDate) {
+function addEvent(event) {
     calendar.addEvent({
-        title: eventTitle,
-        start: stringDate(new Date(eventStartDate)),
-        end: stringDate(new Date(eventEndDate))
+        title: event.name,
+        start: stringDate(new Date(event.startDate)),
+        end: stringDate(new Date(event.endDate))
     });
 }
 
 function addEvents(events) {
     for(var i = 0 ; i < events.length ; i++) {
-        addEvent(events[i].name, events[i].startDate, events[i].endDate);
+        addEvent(events[i]);
     }
 }
 
@@ -36,7 +36,42 @@ function initCalendar(themeSystem) {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        },
+        eventRender: function(info) {
+        	$(function() {
+                $(info.el).contextMenu({
+                    selector: 'div', 
+                    callback: function(key, options) {
+                    	if(key == "edit") {
+                    		$.ajax();
+                    	}
+                    	else if(key == "delete") {
+                    		$.ajax();
+                    	}
+                    },
+                    items: {
+                        "edit": {name: "Edit event", icon: "edit"},
+                        "delete": {name: "Delete event", icon: "delete"}
+                    }
+                });   
+            });
+        },
+        dayRender: function(info) {
+        	$(function() {
+                $(info.el).contextMenu({
+                    selector: 'td',
+                    callback: function(key, options) {
+                    	if(key == "add") {
+                    		$.ajax();
+                    	}
+                    },
+                    items: {
+                        "add": {name: "Add event", icon: "add"},
+                        "edit": {name: "Edit event", icon: "edit"}
+                    }
+                });   
+            });
         },
         color: "red"
     });
