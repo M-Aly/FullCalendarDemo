@@ -12,7 +12,7 @@ import com.jets.dal.entity.Event;
 @Component
 public class CalendarValidator implements Validator {
 	
-	/**
+    /**
      * @param
      * @description("Override Method from spring validator interface to ensure the type of Event")
      * @return 

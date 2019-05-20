@@ -18,14 +18,15 @@ import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
 import java.util.Optional;
 import java.util.UUID;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
  */
 @Controller
+@Scope("session")
 public class CalendarController {
-
     @Autowired
     private EventDao eventDao;
     @Autowired
@@ -54,14 +55,16 @@ public class CalendarController {
      */
     @RequestMapping(value="/displayCalendar", method=RequestMethod.GET)
     @ResponseBody
-    public ModelAndView displayCalender(){
+    public ModelAndView displayCalender(HttpSession session){
         List<Event> events = new ArrayList<>();
         eventDao.findAll().forEach(event -> events.add(DummyEvent.getEvent(event)));
-        ModelAndView model = new ModelAndView("display_calendar");
         Gson gson = new Gson();
-        model.addObject("events", gson.toJson(events));
+        session.setAttribute("events", gson.toJson(events));
+        ModelAndView model = new ModelAndView("display_calendar");
         return model;
     }
+
+    
     /**
      * @description Get method for returning html form for adding new events
      * @param model contains the current event
@@ -124,6 +127,7 @@ public class CalendarController {
         eventDao.save(event);
         return "edit_event";
     }
+    
     @RequestMapping(value="/deleteEvent", method=RequestMethod.POST)
     @ResponseBody
     public String deleteEvent(@RequestParam("eventId") String eventId){

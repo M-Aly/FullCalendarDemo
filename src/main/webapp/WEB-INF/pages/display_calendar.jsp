@@ -80,7 +80,7 @@ var calendar;
 
 <script src='js/display_calendar.js'></script>
 <script>
-	events = ${events};
+	events = ${sessionScope.events};
 </script>
 
 </html>

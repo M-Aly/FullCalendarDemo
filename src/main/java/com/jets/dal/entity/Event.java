@@ -22,6 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -30,6 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "event")
 @XmlRootElement
+@Component
+@Scope("session")
 public class Event extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
