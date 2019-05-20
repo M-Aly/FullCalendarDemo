@@ -16,6 +16,7 @@ import com.jets.dal.entity.Event;
 import com.jets.dal.entity.JobTitle;
 import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Description;
@@ -27,8 +28,10 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,7 +108,35 @@ public class CalendarController implements Validator{
             systemUserDao.save(event.getSystemUser());
         }
         eventDao.save(event);
-        return "redirect:display_calendar";
+        return "redirect:displayCalendar.htm";
+    }
+    
+    @RequestMapping(value="/editEvent", method=RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView editEvent(@RequestParam("eventId") byte[] eventId){
+        Optional<Event> optionalEvent = eventDao.findById(eventId);
+        Event event = null;
+        if(optionalEvent.isPresent())
+            event = optionalEvent.get();
+        Gson gson = new Gson();
+        String jsonEvent = gson.toJson(event);
+        ModelAndView model = new ModelAndView("edit_event", "event", jsonEvent);
+        return model;
+    }
+    @RequestMapping(value="/editEvent", method=RequestMethod.POST)
+    @ResponseBody
+    public String editEvent(@ModelAttribute("event") Event event){
+        eventDao.save(event);
+        return "edit_event";
+    }
+    @RequestMapping(value="/deleteEvent", method=RequestMethod.POST)
+    @ResponseBody
+    public String deleteEvent(@RequestParam("eventId") String eventId){
+        System.out.println(eventId);
+        Event event = eventDao.findById(eventId.getBytes()).get();
+        System.out.println("The Event"+event.getUuid()+"Will Be Deleted");
+        eventDao.deleteById(eventId.getBytes());
+        return "display_calender";
     }
     /**
      * @param

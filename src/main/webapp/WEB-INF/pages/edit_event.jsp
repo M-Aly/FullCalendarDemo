@@ -32,7 +32,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form:form method="POST" action="addEvent.htm" modelAttribute="event" class="login100-form validate-form">
+				<form:form method="POST" action="editEvent.htm" modelAttribute="event" class="login100-form validate-form">
 
 					<div class="wrap-input100 validate-input" data-validate = "Title is required">
 						<form:input path="name" placeholder="Title" class="input100" type="text"/>
