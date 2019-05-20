@@ -78,6 +78,7 @@ var calendar;
 </body>
 
 <script src='js/display_calendar.js'></script>
+    <input type="button" id="testAjax" value="Ajax"/>
 <script>
 	events = ${events};
 </script>
