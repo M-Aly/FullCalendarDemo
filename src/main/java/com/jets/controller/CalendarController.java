@@ -18,12 +18,8 @@ import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,12 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @description("MVC Controller for Adding, Removing and Displaying Events and Calender")
- * 
+ * @description MVC Controller for Adding, Removing and Displaying Events and Calendar
  * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
  */
 @Controller
-public class CalendarController implements Validator{
+public class CalendarController {
 
     @Autowired
     private EventDao eventDao;
@@ -48,12 +43,11 @@ public class CalendarController implements Validator{
     private JobTitleDao jobTitleDao;
     @Autowired
     private SystemUserDao systemUserDao;
+    
     /**
-     * @param
-     * @description("")
+     * @description Displaying Calender and Scheduled Events
      * @return ModelAndView Object Containing All Calender Events and Logical View Name
      */
-//    Displaying Calender and Scheduled Events
     @RequestMapping(value="/displayCalendar", method=RequestMethod.GET)
     @ResponseBody
     public ModelAndView displayCalender(){
@@ -65,8 +59,8 @@ public class CalendarController implements Validator{
         return model;
     }
     /**
-     * @param
-     * @description("Get method for returning html form for adding new events")
+     * @description Get method for returning html form for adding new events
+     * @param model contains the current event
      * @return Logical name for success view 
      */
     @RequestMapping(value="/addEvent", method=RequestMethod.GET)
@@ -76,13 +70,12 @@ public class CalendarController implements Validator{
     }
     
     /**
-     * @param
-     * @description("Post method handler for adding new events")
+     * @description Post method handler for adding new events
      * @return Logical name for success view 
      */
     @RequestMapping(value="/addEvent", method=RequestMethod.POST)
-    public String addEvent(@ModelAttribute("event") Event event1, Model model){
-        Event event = DummyEvent.getEvent(event1);
+    public String addEvent(@ModelAttribute("event") Event calendarEvent, Model model){
+        Event event = DummyEvent.getEvent(calendarEvent);
         Iterator<Organization> organizationIterator = organizationDao.findAll().iterator();
         if(organizationIterator.hasNext()) {
             event.setOrganization(organizationIterator.next());
@@ -105,38 +98,12 @@ public class CalendarController implements Validator{
             systemUserDao.save(event.getSystemUser());
         }
         eventDao.save(event);
-        return "redirect:display_calendar";
+        return "redirect:displayCalendar.htm";
     }
+    
     /**
-     * @param
-     * @description("Override Method from spring validator interface to ensure the type of Event")
-     * @return 
-     */
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return clazz.equals(Event.class);
-    }
-    /**
-     * @param
-     * @description("Validating Date and Title for The Event")
-     * @return 
-     */
-    @Override
-    public void validate(Object object, Errors errors) {
-        Event event = (Event) object;
-        Date date = new Date();
-        if(event.getStartDate().compareTo(date) > 0){
-            errors.rejectValue("startDate", "Invalid Start Date", "Invalid Start Date");
-        }
-        if(event.getStartDate().compareTo(date) > 0){
-            errors.rejectValue("endDate", "Invalid End Date", "Invalid End Date");
-        }
-        ValidationUtils.rejectIfEmpty(errors, "title", "required.title", "Title is required");
-    }
-    /**
-     * @param WebDataBinder
-     * @description("Used for mapping Date Objects from submitted forms to java.util.Date")
-     * @return nothing
+     * @description Used for mapping Date Objects from submitted forms to java.util.Date
+     * @param binder used to register editors
      */
     @InitBinder
     public void initBinder(WebDataBinder binder){

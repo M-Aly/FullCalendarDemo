@@ -8,13 +8,12 @@ import com.jets.dal.entity.SystemUser;
 
 
 /**
- * @description("Class for Generating an Event Dummy related Entities")
- * 
+ * @description Class for Generating an Event Dummy related Entities
  * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
  */
 public class DummyEvent {
 
-    public static Event getEvent(Event event1) {
+    public static Event getEvent(Event calendarEvent) {
 
         Organization organization = new Organization();
         organization.setName("iti");
@@ -36,12 +35,12 @@ public class DummyEvent {
         event.setDeleted(false);
         event.setOrganization(organization);
         event.setSystemUser(systemUser);
-        event.setUuid(event1.getUuid());
-        event.setName(event1.getName());
-        event.setShortDescription(event1.getShortDescription());
-        event.setAddress(event1.getAddress());
-        event.setStartDate(event1.getStartDate());
-        event.setEndDate(event1.getEndDate());
+        event.setUuid(calendarEvent.getUuid());
+        event.setName(calendarEvent.getName());
+        event.setShortDescription(calendarEvent.getShortDescription());
+        event.setAddress(calendarEvent.getAddress());
+        event.setStartDate(calendarEvent.getStartDate());
+        event.setEndDate(calendarEvent.getEndDate());
 
         return event;
 

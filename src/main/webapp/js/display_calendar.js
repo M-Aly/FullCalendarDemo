@@ -52,14 +52,16 @@ function initCalendar(themeSystem) {
                     },
                     items: {
                         "edit": {name: "Edit event", icon: "edit"},
-                        "delete": {name: "Delete event", icon: "delete"}
+                        "delete": {name: "Delete event", icon: "delete"},
+                        "info": {name: "Event information", icon: "fa-info"}
                     }
                 });   
             });
         },
         dayRender: function(info) {
+        	console.log(info.el);
         	$(function() {
-                $(info.el).contextMenu({
+                $(info.el.parentElement).contextMenu({
                     selector: 'td',
                     callback: function(key, options) {
                     	if(key == "add") {
@@ -67,8 +69,7 @@ function initCalendar(themeSystem) {
                     	}
                     },
                     items: {
-                        "add": {name: "Add event", icon: "add"},
-                        "edit": {name: "Edit event", icon: "edit"}
+                        "add": {name: "Add event", icon: "add"}
                     }
                 });   
             });
