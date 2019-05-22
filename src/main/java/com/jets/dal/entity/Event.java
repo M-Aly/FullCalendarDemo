@@ -56,11 +56,9 @@ public class Event extends BaseEntity implements Serializable {
     private String slogan;
     @Column(name = "abbreviation")
     private String abbreviation;
-    @Basic(optional = false)
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
-    @Basic(optional = false)
     @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;

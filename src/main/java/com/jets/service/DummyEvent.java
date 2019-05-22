@@ -1,4 +1,4 @@
-package com.jets.controller;
+package com.jets.service;
 
 import com.jets.dal.entity.Event;
 import com.jets.dal.entity.JobTitle;
@@ -11,7 +11,13 @@ import com.jets.dal.entity.SystemUser;
  */
 public class DummyEvent {
 
-    public static Event getEvent(Event calendarEvent) {
+	/**
+	 * put dummy data in event
+	 * @param calendarEvent
+	 * @return event with dummy data
+	 * @author M. ALI
+	 */
+    public Event getEvent(Event calendarEvent) {
 
         Organization organization = new Organization();
         organization.setName("iti");

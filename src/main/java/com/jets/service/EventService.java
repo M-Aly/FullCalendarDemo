@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jets.controller.DummyEvent;
 import com.jets.dal.dao.EventDao;
 import com.jets.dal.dao.JobTitleDao;
 import com.jets.dal.dao.OrganizationDao;
@@ -34,9 +33,16 @@ public class EventService {
     private JobTitleDao jobTitleDao;
     @Autowired
     private SystemUserDao systemUserDao;
+    
+    DummyEvent dummyEvent = new DummyEvent();
 	
+    /**
+     * save event in database
+     * @param calendarEvent
+     * @author M. ALI
+     */
 	public void saveCalendarEvent(Event calendarEvent) {
-		Event event = DummyEvent.getEvent(calendarEvent);
+		Event event = dummyEvent.getEvent(calendarEvent);
         Iterator<Organization> organizationIterator = organizationDao.findAll().iterator();
         if(organizationIterator.hasNext()) {
             event.setOrganization(organizationIterator.next());
@@ -61,30 +67,56 @@ public class EventService {
         eventDao.save(event);
 	}
 	
+	/**
+	 * update event in database
+	 * @param event
+	 * @author M. ALI
+	 */
 	public void updateCalendarEvent(Event event) {
 		eventDao.save(event);
 	}
 	
+	/**
+	 * delete event
+	 * @param event
+	 * @author M. ALI
+	 */
 	public void deleteCalendarEvent(Event event) {
 		eventDao.delete(event);
 	}
 	
+	/**
+	 * delete event by id
+	 * @param eventId
+	 * @author M. ALI
+	 */
 	public void deleteCalendarEvent(String eventId) {
 		eventDao.deleteById(UUID.fromString(eventId));
 	}
 	
+	/**
+	 * get event by id
+	 * @param eventId
+	 * @return
+	 */
 	public Event getEventById(String eventId) {
 		Optional<Event> optionalEvent = eventDao.findById(UUID.fromString(eventId));
         Event event = null;
         if(optionalEvent.isPresent()) {
-            event = optionalEvent.get();
+            event = dummyEvent.getEvent(optionalEvent.get());
         }
         return event;
 	}
 	
 	public List<Event> getAllEvents() {
 		List<Event> events = new ArrayList<>();
-        eventDao.findAll().forEach(event -> events.add(DummyEvent.getEvent(event)));
+        eventDao.findAll().forEach(event -> events.add(dummyEvent.getEvent(event)));
+        return events;
+	}
+	
+	public List<Event> getNonAssignedEvents() {
+		List<Event> events = new ArrayList<>();
+        eventDao.findByStartDateNullAndEndDateNull().forEach(event -> events.add(dummyEvent.getEvent(event)));
         return events;
 	}
 	

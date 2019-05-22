@@ -17,35 +17,35 @@
 							<form method="POST" id="addEventForm" action="addEvent.htm" class="login100-form validate-form">
 								<div class="wrap-input100 validate-input"
 									data-validate="Title is required">
-									<input placeholder="Title" class="input100" value="Mohamed Ali"
+									<input placeholder="Title" class="input100"
 										name="name" type="text" />
 									<span class="focus-input100"></span>
 								</div>
 
 								<div class="wrap-input100 validate-input"
 									data-validate="Description is required">
-									<input placeholder="Description" class="input100" value="abc"
+									<input placeholder="Description" class="input100"
 										name="shortDescription" type="text" />
 									<span class="focus-input100"></span>
 								</div>
 
 								<div class="wrap-input100 validate-input"
 									data-validate="Address is required">
-									<input placeholder="Address" class="input100" value="abc"
+									<input placeholder="Address" class="input100"
 										name="address" type="text" />
 									<span class="focus-input100"></span>
 								</div>
 
 								<div class="wrap-input100 validate-input"
 									data-validate="Start date is required">
-									<input placeholder="Start date" class="input100" value="2019-05-23"
+									<input placeholder="Start date" class="input100" id="startDate"
 										name="startDate" type="date" />
 									<span class="focus-input100"></span>
 								</div>
 
 								<div class="wrap-input100 validate-input"
 									data-validate="End date is required">
-									<input placeholder="End date" class="input100" value="2019-05-24"
+									<input placeholder="End date" class="input100" id="endDate"
 										name="endDate" type="date" />
 									<span class="focus-input100"></span>
 								</div>

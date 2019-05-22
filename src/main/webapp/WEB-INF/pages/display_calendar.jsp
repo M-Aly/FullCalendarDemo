@@ -1,7 +1,7 @@
 <!-- Author:M. ALI -->
 <!DOCTYPE html>
 <html lang='en'>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta charset='utf-8' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,7 +92,18 @@
 		<div class='clear'></div>
 	</div>
 
-	<div id='calendar'></div>
+	<div id='wrap'>
+		<div id='external-events'>
+			<h4>Non assigned Events</h4>
+			<div id='external-events-list'>
+				<c:forEach items="${nonAssignedEvents}" var="event">
+					<div class='fc-event'>${event.name}</div>
+				</c:forEach>
+			</div>
+		</div>
+		<div id='calendar'></div>
+		<div style='clear: both'></div>
+	</div>
 
 </body>
 

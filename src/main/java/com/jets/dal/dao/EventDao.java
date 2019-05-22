@@ -1,6 +1,8 @@
 package com.jets.dal.dao;
 
 import com.jets.dal.entity.Event;
+
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EventDao extends CrudRepository<Event, UUID> {
+	
+	List<Event> findByStartDateNullOrEndDateNull();
 
 }

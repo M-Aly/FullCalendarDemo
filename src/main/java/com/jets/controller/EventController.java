@@ -8,17 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jets.adapter.JsonAdapter;
 import com.jets.controller.dto.EventJsonResponse;
 import com.jets.dal.entity.Event;
 import com.jets.service.EventService;
@@ -31,58 +28,88 @@ import com.jets.service.EventService;
 @RestController
 public class EventController {
 	
+	JsonAdapter jsonAdapter = new JsonAdapter();
+	
 	@Autowired
 	private EventService eventService;
+	
+	private void setErrors(BindingResult result, EventJsonResponse response) {
+		Map<String, String> errors = result.getFieldErrors().stream()
+				.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+		response.setValidated(false);
+		response.setErrorMessages(errors);
+	}
 
+	/**
+	 * add new event
+	 * @param event event to add to database
+	 * @param result
+	 * @return json event
+	 * @author M. ALI
+	 * @author Hamada Abdrabou
+	 */
 	@RequestMapping(value = "/addEvent", method=RequestMethod.POST)
 	public @ResponseBody
 	String saveEvent(@RequestBody @Valid Event event, BindingResult result) {
 		EventJsonResponse response = new EventJsonResponse();
 		if (result.hasErrors()) {
-			Map<String, String> errors = result.getFieldErrors().stream()
-					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-			response.setValidated(false);
-			response.setErrorMessages(errors);
+			setErrors(result, response);
 		}
 		else {
 			eventService.saveCalendarEvent(event);
 			response.setValidated(true);
 			response.setEvent(event);
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			return objectMapper.writeValueAsString(response);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return jsonAdapter.convertToJson(response);
 	}
 	
-	@RequestMapping(value="/editEvent", method=RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView editEvent(@RequestParam("eventId") String eventId){
-        Event event = eventService.getEventById(eventId);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonEvent = null;
-		try {
-			jsonEvent = objectMapper.writeValueAsString(event);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+	/**
+	 * add new event
+	 * @param event event to add to database
+	 * @param result
+	 * @return json event
+	 * @author M. ALI
+	 * @author Hamada Abdrabou
+	 */
+	@RequestMapping(value="/editEvent", method=RequestMethod.POST)
+    public @ResponseBody
+    String editEvent(@RequestBody @Valid Event event, BindingResult result) {
+		EventJsonResponse response = new EventJsonResponse();
+		if (result.hasErrors()) {
+			setErrors(result, response);
 		}
-        ModelAndView model = new ModelAndView("edit_event", "event", jsonEvent);
-        return model;
+		else {
+	        eventService.updateCalendarEvent(event);
+			response.setValidated(true);
+			response.setEvent(event);
+		}
+		return jsonAdapter.convertToJson(response);
+    }
+	
+	/**
+	 * get event data in form
+	 * @param eventId id of event
+	 * @return json event
+	 * @author M. ALI
+	 * @author Hamada Abdrabou
+	 */
+	@RequestMapping(value="/editEvent", method=RequestMethod.GET)
+    public @ResponseBody
+    String editEvent(@RequestParam("eventId") String eventId) {
+        Event event = eventService.getEventById(eventId);
+        return jsonAdapter.convertToJson(event);
     }
     
-    @RequestMapping(value="/editEvent", method=RequestMethod.POST)
-    @ResponseBody
-    public String editEvent(@ModelAttribute("event") Event event){
-        eventService.updateCalendarEvent(event);
-        return "edit_event";
-    }
-    
+	/**
+	 * delete event
+	 * @param eventId id of event
+	 * @return json event
+	 * @author M. ALI
+	 * @author Hamada Abdrabou
+	 */
     @RequestMapping(value="/deleteEvent", method=RequestMethod.POST)
-    @ResponseBody
-    public String deleteEvent(@RequestParam("eventId") String eventId){
+    public @ResponseBody
+    String deleteEvent(@RequestParam("eventId") String eventId){
         Event event = eventService.getEventById(eventId);
         System.out.println("The Event"+event.getUuid()+"Will Be Deleted");
         eventService.deleteCalendarEvent(eventId);
