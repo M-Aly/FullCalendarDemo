@@ -93,7 +93,7 @@ public class EventController {
 	 * @author M. ALI
 	 * @author Hamada Abdrabou
 	 */
-	@RequestMapping(value="/editEvent", method=RequestMethod.GET)
+	@RequestMapping(value="/getEvent", method=RequestMethod.GET)
     public @ResponseBody
     String editEvent(@RequestParam("eventId") String eventId) {
         Event event = eventService.getEventById(eventId);
@@ -103,7 +103,7 @@ public class EventController {
 	/**
 	 * delete event
 	 * @param eventId id of event
-	 * @return json event
+	 * @return event id
 	 * @author M. ALI
 	 * @author Hamada Abdrabou
 	 */

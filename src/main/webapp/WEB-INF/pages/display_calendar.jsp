@@ -97,7 +97,7 @@
 			<h4>Non assigned Events</h4>
 			<div id='external-events-list'>
 				<c:forEach items="${nonAssignedEvents}" var="event">
-					<div class='fc-event'>${event.name}</div>
+					<div id="${event.uuid}" class='fc-event'>${event.name}</div>
 				</c:forEach>
 			</div>
 		</div>

@@ -93,6 +93,25 @@ function initCalendar(themeSystem) {
         droppable : true,
 		drop : function(dropInfo) {
 			dropInfo.draggedEl.parentNode.removeChild(dropInfo.draggedEl);
+			$.ajax({
+     	       type: 'POST',
+     	       url : 'editEvent.htm',
+     	       data : {uuid : dropInfo.draggedEl.id, startDate : stringDate(dropInfo.date), endDate : stringDate(dropInfo.date)},
+     	       contentType: "application/json",
+     	       dataType: "json",
+     	       success : function(response) {
+     	          if(response.validated) {
+     	        	  addEvent(response.event);
+     	        	  swal(response.event.name, " is edited successfully", "success");
+     	          }
+     	          else {
+     	            displayFormErrors(response.errorMessages);
+     	          }
+     	       },
+     	       error: function(response) {
+     	    	   console.log("Error");
+     	       }
+     	    });
 		},
         eventRender: function (info) {
             $(function () {
