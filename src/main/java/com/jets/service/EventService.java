@@ -116,7 +116,7 @@ public class EventService {
 	
 	public List<Event> getNonAssignedEvents() {
 		List<Event> events = new ArrayList<>();
-        eventDao.findByStartDateNullAndEndDateNull().forEach(event -> events.add(dummyEvent.getEvent(event)));
+        eventDao.findByStartDateNullOrEndDateNull().forEach(event -> events.add(dummyEvent.getEvent(event)));
         return events;
 	}
 	
