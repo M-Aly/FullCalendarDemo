@@ -9,6 +9,10 @@ import org.springframework.validation.Validator;
 
 import com.jets.dal.entity.Event;
 
+/**
+ * validator for events
+ * @author Hamada Abdrabou
+ */
 @Component
 public class CalendarValidator implements Validator {
 	

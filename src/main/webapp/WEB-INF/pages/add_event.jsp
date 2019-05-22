@@ -1,93 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<head>
-	<title>Add event</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="images/img-01.png" alt="IMG">
-				</div>
+<!-- Author:M. ALI -->
+<div class="modal fade" id="addEvent" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
 
-				<form:form method="POST" action="addEvent.htm" modelAttribute="event" class="login100-form validate-form">
-
-					<div class="wrap-input100 validate-input" data-validate = "Title is required">
-						<form:input path="name" placeholder="Title" class="input100" type="text"/>
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Description is required">
-						<form:input path="shortDescription" placeholder="Description" class="input100" type="text"/>
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Address is required">
-						<form:input path="address" placeholder="Address" class="input100" type="text"/>
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Start date is required">
-						<form:input path="startDate" placeholder="Start date" class="input100" type="date"/>
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "End date is required">
-						<form:input path="endDate" placeholder="End date" class="input100" type="date"/>
-						<span class="focus-input100"></span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Add
-						</button>
-					</div>
-				</form:form>
+			<div class="modal-header" style="padding: 35px 50px;">
+				<h4>
+					<span class="glyphicon glyphicon-plus"></span> Add event
+				</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
+
+			<div class="modal-body" style="padding: 40px 50px;">
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<form method="POST" id="addEventForm" action="addEvent.htm" class="login100-form validate-form">
+								<div class="wrap-input100 validate-input"
+									data-validate="Title is required">
+									<input placeholder="Title" class="input100" value="Mohamed Ali"
+										name="name" type="text" />
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="wrap-input100 validate-input"
+									data-validate="Description is required">
+									<input placeholder="Description" class="input100" value="abc"
+										name="shortDescription" type="text" />
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="wrap-input100 validate-input"
+									data-validate="Address is required">
+									<input placeholder="Address" class="input100" value="abc"
+										name="address" type="text" />
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="wrap-input100 validate-input"
+									data-validate="Start date is required">
+									<input placeholder="Start date" class="input100" value="2019-05-23"
+										name="startDate" type="date" />
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="wrap-input100 validate-input"
+									data-validate="End date is required">
+									<input placeholder="End date" class="input100" value="2019-05-24"
+										name="endDate" type="date" />
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn" type="submit" id="addEventSubmit">Add</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
-	
-	
-
-	
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-</body>
-</html>
+</div>

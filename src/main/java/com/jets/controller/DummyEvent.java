@@ -5,11 +5,9 @@ import com.jets.dal.entity.JobTitle;
 import com.jets.dal.entity.Organization;
 import com.jets.dal.entity.SystemUser;
 
-
-
 /**
- * @description Class for Generating an Event Dummy related Entities
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * dummy event data
+ * @author M. ALI
  */
 public class DummyEvent {
 

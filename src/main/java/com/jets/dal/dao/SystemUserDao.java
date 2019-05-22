@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * @description("For Crud Operation with SystemUser Entity")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * For Crud Operation with SystemUser Entity
+ * @author M. ALI
+ * @author Hamada Abdrabou
  */
 @Repository
 public interface SystemUserDao extends CrudRepository<SystemUser, byte[]> {

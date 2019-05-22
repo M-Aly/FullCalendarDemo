@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * @description("DAO for Crud Operation for Event Entity")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * DAO for Crud Operation for Event Entity
+ * @author M. ALI
+ * @author Hamada Abdrabou
  */
 @Repository
 public interface EventDao extends CrudRepository<Event, UUID> {

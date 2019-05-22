@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * @description("Dao for manipulating JobTitle Entity")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * Dao for manipulating JobTitle Entity
+ * @author M. ALI
+ * @author Hamada Abdrabou
  */
 @Repository
 public interface JobTitleDao extends CrudRepository<JobTitle, byte[]> {

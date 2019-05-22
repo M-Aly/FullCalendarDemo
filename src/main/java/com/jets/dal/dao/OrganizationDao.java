@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * @description("Dao for Crud Operation with Organization Entity")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * Dao for Crud Operation with Organization Entity
+ * @author M. ALI
+ * @author Hamada Abdrabou
  */
 @Repository
 public interface OrganizationDao extends CrudRepository<Organization, byte[]> {

@@ -23,9 +23,9 @@ import javax.sql.DataSource;
 
 
 /**
- * @description("Spring Configuration Class Annotation Based")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * Spring Configuration Class Annotation Based
+ * @author M. ALI
+ * @author Hamada Abdrabou
  */
 @Configuration
 @PropertySource("classpath:datasource.properties")

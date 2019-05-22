@@ -1,17 +1,33 @@
+<!-- Author:M. ALI -->
 <!DOCTYPE html>
 <html lang='en'>
 
 <head>
 <meta charset='utf-8' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href='fonts/font-awesome-4.7.0/css/font-awesome.css' rel='stylesheet'>
+<link href='css/jquery.contextMenu.css' rel='stylesheet' />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="css/util.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
 <link href='css/full_calendar/core/main.css' rel='stylesheet' />
 <link href='css/full_calendar/daygrid/main.css' rel='stylesheet' />
 <link href='css/full_calendar/timegrid/main.css' rel='stylesheet' />
 <link href='css/full_calendar/list/main.css' rel='stylesheet' />
 <link href='css/full_calendar/bootstrap/main.css' rel='stylesheet' />
 <link href='css/display_calendar.css' rel='stylesheet' />
-<link href='css/jquery.contextMenu.css' rel='stylesheet' />
 
 <script src='js/jquery-3.3.1.min.js'></script>
 <script src='js/core/main.js'></script>
@@ -26,12 +42,14 @@
 <script src='js/jquery.ui.position.js'></script>
 <script src='js/jquery.contextMenu.js'></script>
 <script>
-var events;
-var calendar;
+	var events;
+	var calendar;
 </script>
 </head>
 
-<body>
+<body class="container">
+
+	<jsp:include page="add_event.jsp"></jsp:include>
 
 	<div id='top'>
 		<div class='left'>
@@ -78,6 +96,22 @@ var calendar;
 
 </body>
 
+<script src="js/sweetalert.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+	$('.js-tilt').tilt({
+		scale: 1.1
+	})
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+<!--===============================================================================================-->
 <script src='js/display_calendar.js'></script>
 <script>
 	events = ${sessionScope.events};

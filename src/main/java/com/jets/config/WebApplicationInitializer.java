@@ -4,9 +4,10 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 
 /**
- * @description("Class for DispatcherServlet Using Annotation")
- * 
- * @author Mohamed Ali, Hamada Abdrabou, Mohamed Jamal
+ * Class for DispatcherServlet Using Annotation
+ * @author M. ALI
+ * @author Hamada Abdrabou
+ * @author Mohamed Jamal
  */
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

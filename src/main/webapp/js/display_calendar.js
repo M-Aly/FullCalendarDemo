@@ -1,3 +1,6 @@
+/*
+ * Authors:M. ALI, Hamada Abdrabou
+ */
 
 function getString(number) {
     var str = number;
@@ -25,6 +28,36 @@ function addEvents(events) {
         addEvent(events[i]);
     }
 }
+
+$('#addEventSubmit').click(function(e) {
+    e.preventDefault();
+    $('input').next().remove();
+    var form = {};
+    $.map($('#addEventForm').serializeArray(), function(n, i) {
+        form[n['name']] = n['value'];
+    });
+    $.ajax({
+       type: 'POST',
+       url : 'addEvent.htm',
+       data : JSON.stringify(form),
+       contentType: "application/json",
+       dataType: "json",
+       success : function(response) {
+          if(response.validated) {
+        	  addEvent(response.event);
+        	  swal(response.event.name, " is added to calendar", "success");
+          }
+          else {
+            $.each(response.errorMessages, function(key, value) {
+	            $('input[name=' + key + ']').after('<span class="error">' + value + '</span>');
+            });
+          }
+       },
+       error: function(response) {
+    	   console.log("Error");
+       }
+    })
+ });
 
 function initCalendar(themeSystem) {
     var calendarEl = document.getElementById('calendar');
@@ -57,7 +90,8 @@ function initCalendar(themeSystem) {
                                     console.log("ERROR: ", e);
                                 }
                             });
-                        } else if (key == "delete") {
+                        }
+                        else if (key == "delete") {
                             $.ajax({
                                 url: "deleteEvent.htm?eventId=" + info.event.id,
                                 type: "POST",
@@ -69,6 +103,8 @@ function initCalendar(themeSystem) {
                                     console.log("ERROR: ", e);
                                 }
                             });
+                        }
+                        else if (key == "info") {
                         }
                     },
                     items: {
@@ -85,7 +121,7 @@ function initCalendar(themeSystem) {
                     selector: 'td',
                     callback: function (key, options) {
                         if (key == "add") {
-                            $.ajax();
+                        	$("#addEvent").modal();
                         }
                     },
                     items: {
